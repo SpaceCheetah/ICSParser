@@ -1,0 +1,7 @@
+LIBRARY "Python"
+DESCRIPTION "Python IISAPI Extension"
+
+EXPORTS
+	HttpExtensionProc @1
+	GetExtensionVersion @2
+	TerminateExtension @3
