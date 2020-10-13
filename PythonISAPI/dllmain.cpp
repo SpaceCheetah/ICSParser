@@ -36,7 +36,19 @@ void threadFunc(EXTENSION_CONTROL_BLOCK* pECB) {
         std::string response = "";
         std::string command = "python ";
         command += pECB->lpszPathTranslated;
+        std::string body = std::string{ (const char*)pECB->lpbData, pECB->cbAvailable };
+        for (int i = 0; i < body.length(); i++)
+        {
+            if (body[i] == '"')
+            {
+                body.insert(i++, "\\");
+            }
+        }
         command += " ";
+        command += pECB->lpszMethod;
+        command += " \"";
+        command += body;
+        command += "\" ";
         command += queryString;
         FILE* pipe = _popen(command.c_str(), "r");
         if (pipe) {
